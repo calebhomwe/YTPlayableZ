@@ -251,13 +251,573 @@
       .notification { font-size: 12px; }
     }
   </style>
+  <style id="premium-skin">
+    :root {
+      --bg: #07111e;
+      --panel: #0f1b2b;
+      --panel-2: #17283d;
+      --text: #f8f4e9;
+      --muted: #9aabbd;
+      --line: rgba(170, 193, 214, 0.18);
+      --accent: #f4b83f;
+      --accent-2: #74d2bd;
+      --shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100dvh;
+      color: var(--text);
+      font-family: ui-rounded, "Avenir Next", "Trebuchet MS", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 16% 0%, rgba(64, 111, 142, 0.26), transparent 34rem),
+        radial-gradient(circle at 92% 18%, rgba(208, 143, 56, 0.11), transparent 28rem),
+        linear-gradient(140deg, #07111e 0%, #0a1728 56%, #08111d 100%);
+      letter-spacing: 0.01em;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: radial-gradient(rgba(255,255,255,0.22) 0.6px, transparent 0.6px);
+      background-size: 5px 5px;
+      mix-blend-mode: soft-light;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding: 14px clamp(12px, 2vw, 28px);
+      gap: 10px;
+      background: rgba(7, 17, 30, 0.88);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(18px);
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 206px;
+      margin-right: 8px;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      color: #1c2833;
+      font-size: 22px;
+      background: linear-gradient(145deg, #ffd36a, #e89f2f);
+      border: 1px solid rgba(255,255,255,0.48);
+      border-radius: 12px 12px 10px 10px;
+      box-shadow: 0 5px 14px rgba(238, 169, 54, 0.24);
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+      line-height: 1;
+    }
+
+    .brand-copy b {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .brand-copy small {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .stat {
+      position: relative;
+      min-width: 90px;
+      padding: 17px 14px 8px;
+      color: var(--text);
+      text-align: left;
+      background: linear-gradient(145deg, rgba(24, 43, 64, 0.96), rgba(15, 28, 45, 0.96));
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      box-shadow: inset 0 1px rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.16);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .stat::before {
+      content: attr(data-label);
+      position: absolute;
+      top: 6px;
+      left: 14px;
+      color: #8094a9;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+    }
+
+    #clock {
+      min-width: 126px;
+      color: #ffe7ad;
+    }
+
+    #money {
+      color: #b7e8b1;
+    }
+
+    #mood {
+      min-width: 72px;
+      font-size: 21px;
+      text-align: center;
+    }
+
+    .controls {
+      gap: 6px;
+    }
+
+    button,
+    label {
+      border: 1px solid rgba(171, 198, 219, 0.2);
+      border-radius: 10px;
+      background: linear-gradient(145deg, #1b3047, #13243a);
+      box-shadow: inset 0 1px rgba(255,255,255,0.05), 0 4px 10px rgba(0,0,0,0.12);
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+    }
+
+    button {
+      min-height: 36px;
+      padding: 8px 11px;
+      color: var(--text);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    button:hover,
+    button:focus-visible,
+    label:hover {
+      filter: none;
+      transform: translateY(-1px);
+      border-color: rgba(244, 184, 63, 0.7);
+      box-shadow: 0 7px 16px rgba(0,0,0,0.18), 0 0 0 3px rgba(244,184,63,0.08);
+      outline: none;
+    }
+
+    button:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    button.active,
+    #pauseBtn {
+      color: #1e2935;
+      background: linear-gradient(145deg, #ffd36b, #e9a632);
+      border-color: #ffd979;
+      box-shadow: 0 5px 14px rgba(235, 169, 48, 0.2);
+    }
+
+    #pauseBtn {
+      min-width: 76px;
+    }
+
+    label {
+      min-height: 36px;
+      padding: 8px 10px;
+      color: #c9d6e3;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    label input {
+      accent-color: var(--accent-2);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(184px, 216px) minmax(500px, 1fr) minmax(224px, 270px);
+      gap: 14px;
+      max-width: 1700px;
+      margin: 0 auto;
+      padding: 18px clamp(10px, 2vw, 28px) 28px;
+      align-items: start;
+    }
+
+    aside,
+    #canvas-wrap {
+      background: linear-gradient(160deg, rgba(18, 33, 51, 0.96), rgba(10, 24, 39, 0.96));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,0.04);
+    }
+
+    aside {
+      padding: 14px;
+    }
+
+    #needs,
+    #side {
+      width: auto;
+    }
+
+    #needs {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    #side {
+      display: grid;
+      gap: 14px;
+    }
+
+    #canvas-wrap {
+      min-width: 0;
+      padding: 9px;
+      background: linear-gradient(145deg, rgba(17, 31, 46, 0.98), rgba(8, 20, 33, 0.98));
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      background: #0b1420;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 13px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      color: #f4ead5;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    h2 > span:last-child {
+      display: grid;
+      gap: 2px;
+    }
+
+    h2 small {
+      color: #7890a5;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .panel-icon {
+      display: grid;
+      place-items: center;
+      width: 25px;
+      height: 25px;
+      color: #1b2731;
+      font-size: 13px;
+      background: linear-gradient(145deg, #ffd16b, #e8a130);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(232,161,48,0.2);
+    }
+
+    .need {
+      gap: 6px;
+      padding: 9px 9px 10px;
+      background: rgba(28, 49, 70, 0.52);
+      border: 1px solid rgba(159, 188, 211, 0.1);
+      border-radius: 12px;
+    }
+
+    .need-label {
+      align-items: center;
+      color: #c8d5e2;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .need-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .need-icon {
+      display: grid;
+      place-items: center;
+      width: 19px;
+      height: 19px;
+      color: #16212d;
+      font-size: 11px;
+      background: #f2b544;
+      border-radius: 7px;
+    }
+
+    .need-value {
+      color: #f5dfad;
+      font-size: 11px;
+    }
+
+    .bar {
+      height: 8px;
+      background: #0a1524;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.28);
+    }
+
+    .bar-fill {
+      border-radius: inherit;
+      box-shadow: 0 0 10px rgba(255,255,255,0.16);
+    }
+
+    .bar-fill.good {
+      background: linear-gradient(90deg, #66bfa4, #9be180);
+    }
+
+    .bar-fill.warn {
+      background: linear-gradient(90deg, #e4a13a, #ffd16b);
+    }
+
+    .bar-fill.bad {
+      background: linear-gradient(90deg, #d95d64, #ff8c6b);
+    }
+
+    .need-tip {
+      margin-top: 5px;
+      padding: 11px;
+      color: #a9bdc7;
+      font-size: 11px;
+      line-height: 1.45;
+      background: rgba(116, 210, 189, 0.08);
+      border: 1px solid rgba(116, 210, 189, 0.18);
+      border-radius: 12px;
+    }
+
+    .need-tip strong {
+      color: #aee7d8;
+    }
+
+    #objectName {
+      margin-bottom: 11px;
+      color: #ffe4a7;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    #objectActions {
+      gap: 8px;
+    }
+
+    .action {
+      min-height: 52px;
+      gap: 4px;
+      padding: 10px 11px;
+      text-align: left;
+      background: linear-gradient(145deg, rgba(31, 57, 77, 0.94), rgba(19, 38, 58, 0.94));
+    }
+
+    .action-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #f5f0e5;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .action-arrow {
+      color: var(--accent);
+      font-size: 15px;
+    }
+
+    .action small {
+      color: #91a7b9;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .current {
+      margin-bottom: 8px;
+      padding: 11px;
+      color: #c5d5e1;
+      line-height: 1.4;
+      background: linear-gradient(145deg, rgba(32, 59, 75, 0.94), rgba(17, 35, 53, 0.94));
+      border: 1px solid rgba(116, 210, 189, 0.22);
+      border-radius: 12px;
+    }
+
+    .current-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffdda0;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .state-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-2);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(116,210,189,0.12), 0 0 12px rgba(116,210,189,0.8);
+    }
+
+    .current-meta {
+      margin-top: 5px;
+      color: #9eb3c1;
+      font-size: 10px;
+    }
+
+    .current-progress {
+      height: 6px;
+      margin-top: 9px;
+      overflow: hidden;
+      background: #0b1726;
+      border-radius: 999px;
+    }
+
+    .current-progress span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #74d2bd, #f4b83f);
+      border-radius: inherit;
+    }
+
+    .notification {
+      padding: 8px 0;
+      color: #a8b9c8;
+      font-size: 10px;
+      line-height: 1.35;
+      border-bottom: 1px solid rgba(170,193,214,0.12);
+    }
+
+    .notification:first-child {
+      color: #f4d38a;
+    }
+
+    .hint {
+      padding: 11px;
+      color: #92a9bb;
+      font-size: 11px;
+      line-height: 1.55;
+      background: rgba(9, 22, 36, 0.55);
+      border: 1px dashed rgba(159, 188, 211, 0.17);
+      border-radius: 11px;
+    }
+
+    @media (max-width: 1200px) {
+      main {
+        grid-template-columns: minmax(175px, 210px) minmax(420px, 1fr);
+      }
+
+      #side {
+        grid-column: 1 / -1;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      header {
+        position: relative;
+        padding: calc(9px + env(safe-area-inset-top)) 8px 9px;
+      }
+
+      .title {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .stat,
+      .stat.small {
+        flex: 1;
+        min-width: 0;
+        padding-right: 9px;
+        padding-left: 9px;
+      }
+
+      .stat::before {
+        left: 9px;
+      }
+
+      .controls {
+        width: 100%;
+        margin-left: 0;
+        padding-bottom: 3px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .controls button,
+      .controls label {
+        flex: 0 0 auto;
+        min-height: 42px;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 9px;
+        padding: 8px 6px 18px;
+      }
+
+      #canvas-wrap {
+        order: -3;
+        width: 100%;
+        padding: 4px;
+      }
+
+      #needs {
+        order: -2;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      #needs h2,
+      .need-tip {
+        grid-column: 1 / -1;
+      }
+
+      #side {
+        order: -1;
+        grid-column: auto;
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        padding: 11px;
+        border-radius: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
-    <div class="title">Mini Life Sim</div>
-    <div class="stat" id="clock">Day 1 08:00</div>
-    <div class="stat small" id="money">$120</div>
-    <div class="stat small" id="mood">🙂</div>
+    <div class="title">
+      <span class="brand-mark">⌂</span>
+      <span class="brand-copy"><span>Mini <b>Life</b> Sim</span><small>make today count</small></span>
+    </div>
+    <div class="stat" id="clock" data-label="TIME">Day 1 08:00</div>
+    <div class="stat small" id="money" data-label="CASH">$120</div>
+    <div class="stat small" id="mood" data-label="MOOD">🙂</div>
 
     <div class="controls">
       <button id="pauseBtn">Pause</button>
@@ -284,13 +844,13 @@
 
     <aside id="side">
       <div>
-        <h2>Selected</h2>
+        <h2><span class="panel-icon">✦</span><span>Selected<small>interaction</small></span></h2>
         <div id="objectName">None</div>
         <div id="objectActions"></div>
       </div>
 
       <div>
-        <h2>Log</h2>
+        <h2><span class="panel-icon">☷</span><span>Log<small>recent moments</small></span></h2>
         <div id="notificationList"></div>
       </div>
     </aside>
@@ -301,12 +861,12 @@
     const ctx = canvas.getContext("2d");
 
     const NEEDS = [
-      { id: "hunger", label: "Hunger" },
-      { id: "bladder", label: "Bladder" },
-      { id: "energy", label: "Energy" },
-      { id: "hygiene", label: "Hygiene" },
-      { id: "fun", label: "Fun" },
-      { id: "social", label: "Social" }
+      { id: "hunger", label: "Hunger", icon: "🍽" },
+      { id: "bladder", label: "Bladder", icon: "◔" },
+      { id: "energy", label: "Energy", icon: "ϟ" },
+      { id: "hygiene", label: "Hygiene", icon: "✦" },
+      { id: "fun", label: "Fun", icon: "☀" },
+      { id: "social", label: "Social", icon: "◉" }
     ];
 
     const OBJECTS = [
@@ -491,15 +1051,17 @@
 
     function buildNeedsUI() {
       const needsPanel = document.getElementById("needs");
-      needsPanel.innerHTML = "<h2>Needs</h2>";
+      needsPanel.innerHTML = `
+        <h2><span class="panel-icon">♥</span><span>Needs<small>wellbeing</small></span></h2>
+      `;
 
       NEEDS.forEach((need) => {
         const div = document.createElement("div");
         div.className = "need";
         div.innerHTML = `
           <div class="need-label">
-            <span>${need.label}</span>
-            <span id="value-${need.id}">0</span>
+            <span class="need-name"><span class="need-icon">${need.icon}</span>${need.label}</span>
+            <span class="need-value" id="value-${need.id}">0</span>
           </div>
           <div class="bar">
             <div id="bar-${need.id}" class="bar-fill good"></div>
@@ -507,6 +1069,11 @@
         `;
         needsPanel.appendChild(div);
       });
+
+      needsPanel.insertAdjacentHTML(
+        "beforeend",
+        `<div class="need-tip"><strong>Little reminder</strong><br />A balanced day keeps your Sim happy, healthy, and ready for whatever comes next.</div>`
+      );
     }
 
     function moodEmoji() {
@@ -527,6 +1094,14 @@
       document.getElementById("mood").textContent = moodEmoji();
       document.getElementById("pauseBtn").textContent = state.paused ? "Resume" : "Pause";
       document.getElementById("autonomy").checked = state.autonomy;
+
+      const progressFill = document.querySelector(".current-progress span");
+      if (progressFill && state.currentAction) {
+        const progress = state.currentAction.phase === "doing"
+          ? clamp(state.currentAction.elapsed / state.currentAction.duration, 0, 1)
+          : 0;
+        progressFill.style.width = `${progress * 100}%`;
+      }
 
       NEEDS.forEach((need) => {
         const value = Math.round(state.needs[need.id]);
@@ -564,10 +1139,13 @@
 
         const current = document.createElement("div");
         current.className = "current";
+        const progress = action.phase === "doing"
+          ? clamp(action.elapsed / action.duration, 0, 1)
+          : 0;
         current.innerHTML = `
-          <strong>${action.label}</strong><br />
-          ${action.phase === "move" ? `Moving to ${action.targetName}` : "Doing action"}<br />
-          ${action.phase === "doing" ? `${Math.floor(action.elapsed)} / ${action.duration} min` : ""}
+          <div class="current-title"><span>${action.label}</span><span class="state-dot"></span></div>
+          <div class="current-meta">${action.phase === "move" ? `Walking to ${action.targetName}` : `${Math.floor(action.elapsed)} / ${action.duration} min`}</div>
+          ${action.phase === "doing" ? `<div class="current-progress"><span style="width: ${progress * 100}%"></span></div>` : ""}
         `;
 
         const cancel = document.createElement("button");
@@ -618,7 +1196,7 @@
         const moneyParts = [costText, moneyText].filter(Boolean).join(" ");
 
         btn.innerHTML = `
-          <span>${action.label}</span>
+          <span class="action-label"><span>${action.label}</span><span class="action-arrow">→</span></span>
           <small>${action.duration} min ${moneyParts}</small>
         `;
 
@@ -870,101 +1448,356 @@
       updateHUD();
     }
 
+    function roundedPath(x, y, w, h, radius) {
+      const r = Math.min(radius, Math.abs(w) / 2, Math.abs(h) / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function fillRounded(x, y, w, h, radius, color) {
+      roundedPath(x, y, w, h, radius);
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+
+    function strokeRounded(x, y, w, h, radius, color, width = 1) {
+      roundedPath(x, y, w, h, radius);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.stroke();
+    }
+
+    function drawFloorPattern(x, y, w, h, type) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x, y, w, h);
+      ctx.clip();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = type === "tile" ? "rgba(255,244,215,0.17)" : "rgba(76,42,27,0.13)";
+
+      if (type === "tile") {
+        for (let gx = x - 12; gx < x + w + 24; gx += 32) {
+          ctx.beginPath();
+          ctx.moveTo(gx, y);
+          ctx.lineTo(gx, y + h);
+          ctx.stroke();
+        }
+        for (let gy = y - 12; gy < y + h + 24; gy += 32) {
+          ctx.beginPath();
+          ctx.moveTo(x, gy);
+          ctx.lineTo(x + w, gy);
+          ctx.stroke();
+        }
+      } else {
+        for (let gy = y + 12; gy < y + h + 20; gy += 14) {
+          ctx.beginPath();
+          ctx.moveTo(x, gy);
+          ctx.lineTo(x + w, gy);
+          ctx.stroke();
+        }
+        ctx.strokeStyle = "rgba(255,240,207,0.1)";
+        for (let gx = x + 18; gx < x + w + 20; gx += 72) {
+          ctx.beginPath();
+          ctx.moveTo(gx, y);
+          ctx.lineTo(gx, y + h);
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
+
+    function drawRoom(room) {
+      ctx.save();
+      ctx.shadowColor = "rgba(27, 15, 16, 0.4)";
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetY = 4;
+      fillRounded(room.x, room.y, room.w, room.h, 10, room.color);
+      ctx.restore();
+
+      drawFloorPattern(room.x + 2, room.y + 2, room.w - 4, room.h - 4, room.type);
+      strokeRounded(room.x, room.y, room.w, room.h, 10, "rgba(55, 32, 28, 0.8)", 4);
+      strokeRounded(room.x + 5, room.y + 5, room.w - 10, room.h - 10, 7, "rgba(255,239,203,0.22)", 1);
+
+      ctx.font = "800 11px ui-rounded, Trebuchet MS, sans-serif";
+      const labelWidth = ctx.measureText(room.name).width + 20;
+      fillRounded(room.x + 12, room.y + 12, labelWidth, 23, 11, "rgba(33, 28, 29, 0.56)");
+      ctx.fillStyle = "#fff0cc";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      ctx.fillText(room.name, room.x + 22, room.y + 23.5);
+    }
+
+    function drawWindow(x, y, w, h) {
+      fillRounded(x, y, w, h, 6, "#263b4e");
+      fillRounded(x + 5, y + 5, w - 10, h - 10, 3, "#83a9b8");
+      ctx.strokeStyle = "rgba(236, 242, 224, 0.58)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x + w / 2, y + 5);
+      ctx.lineTo(x + w / 2, y + h - 5);
+      ctx.moveTo(x + 5, y + h / 2);
+      ctx.lineTo(x + w - 5, y + h / 2);
+      ctx.stroke();
+      ctx.fillStyle = "rgba(255, 234, 155, 0.65)";
+      ctx.beginPath();
+      ctx.arc(x + w - 17, y + 14, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function drawPlant(x, y, scale = 1) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      fillRounded(-13, 5, 26, 19, 5, "#a96448");
+      fillRounded(-10, 3, 20, 6, 3, "#d98d59");
+      ctx.fillStyle = "#4d8566";
+      [[-8, 2, -20, -15], [0, 0, -2, -23], [7, 2, 19, -15], [-4, -1, -12, -26], [5, -3, 12, -27]].forEach(([sx, sy, ex, ey]) => {
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        ctx.quadraticCurveTo((sx + ex) / 2, ey - 4, ex, ey);
+        ctx.quadraticCurveTo((sx + ex) / 2 + 4, ey + 2, sx, sy);
+        ctx.fill();
+      });
+      ctx.restore();
+    }
+
     function drawRooms() {
-      ctx.fillStyle = "#0f172a";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const backdrop = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      backdrop.addColorStop(0, "#101b29");
+      backdrop.addColorStop(1, "#07111d");
+      ctx.fillStyle = backdrop;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "#e2e8f0";
-      ctx.fillRect(20, 20, 920, 560);
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.58)";
+      ctx.shadowBlur = 18;
+      ctx.shadowOffsetY = 7;
+      fillRounded(14, 14, 932, 572, 23, "#3b2a2d");
+      ctx.restore();
+
+      fillRounded(20, 20, 920, 560, 18, "#c69e73");
+      drawFloorPattern(23, 23, 914, 554, "wood");
 
       const rooms = [
-        { name: "Kitchen", x: 20, y: 20, w: 300, h: 220, color: "#fde68a" },
-        { name: "Bathroom", x: 640, y: 20, w: 300, h: 220, color: "#bae6fd" },
-        { name: "Bedroom", x: 20, y: 360, w: 300, h: 220, color: "#ddd6fe" },
-        { name: "Living Room", x: 640, y: 360, w: 300, h: 220, color: "#bbf7d0" }
+        { name: "Kitchen", x: 30, y: 30, w: 290, h: 220, color: "#cba976", type: "tile" },
+        { name: "Entry", x: 330, y: 30, w: 290, h: 220, color: "#b78963", type: "wood" },
+        { name: "Bathroom", x: 640, y: 30, w: 290, h: 220, color: "#71969a", type: "tile" },
+        { name: "Bedroom", x: 30, y: 360, w: 290, h: 210, color: "#9b7c72", type: "wood" },
+        { name: "Living Room", x: 330, y: 270, w: 600, h: 300, color: "#c29a6c", type: "wood" }
       ];
+      rooms.forEach(drawRoom);
 
-      rooms.forEach((room) => {
-        ctx.fillStyle = room.color;
-        ctx.fillRect(room.x, room.y, room.w, room.h);
+      fillRounded(390, 362, 232, 116, 18, "rgba(229, 190, 121, 0.28)");
+      strokeRounded(390, 362, 232, 116, 18, "rgba(89, 52, 37, 0.24)", 2);
+      drawWindow(405, 46, 104, 36);
+      drawPlant(570, 103, 0.72);
+      drawPlant(585, 526, 1.05);
+      drawPlant(350, 525, 0.58);
 
-        ctx.strokeStyle = "#334155";
-        ctx.lineWidth = 3;
-        ctx.strokeRect(room.x, room.y, room.w, room.h);
+      fillRounded(525, 286, 63, 10, 5, "rgba(65, 39, 31, 0.36)");
+      ctx.fillStyle = "#5a3529";
+      ctx.fillRect(530, 290, 5, 17);
+      ctx.fillRect(578, 290, 5, 17);
+      fillRounded(526, 280, 60, 11, 4, "#9a6644");
+    }
 
-        ctx.fillStyle = "#334155";
-        ctx.font = "16px Arial";
-        ctx.textAlign = "left";
-        ctx.textBaseline = "alphabetic";
-        ctx.fillText(room.name, room.x + 10, room.y + 24);
-      });
+    function drawObjectShadow(obj) {
+      ctx.save();
+      ctx.fillStyle = "rgba(47, 25, 23, 0.28)";
+      ctx.beginPath();
+      ctx.ellipse(obj.x + obj.w / 2 + 2, obj.y + obj.h + 4, Math.max(18, obj.w * 0.42), Math.max(4, obj.h * 0.08), 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawObjectSprite(obj) {
+      const x = obj.x;
+      const y = obj.y;
+      const w = obj.w;
+      const h = obj.h;
+      drawObjectShadow(obj);
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      switch (obj.id) {
+        case "fridge":
+          fillRounded(x + 4, y + 2, w - 8, h - 3, 8, "#657c72");
+          fillRounded(x + 8, y + 7, w - 16, 23, 5, "#7f9786");
+          ctx.strokeStyle = "rgba(35,45,45,0.44)";
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(x + 7, y + 34); ctx.lineTo(x + w - 7, y + 34); ctx.stroke();
+          ctx.fillStyle = "#d5b879"; ctx.fillRect(x + w - 16, y + 13, 3, 10); ctx.fillRect(x + w - 16, y + 44, 3, 11);
+          fillRounded(x + 14, y + 18, 9, 5, 2, "#d68e65");
+          break;
+        case "stove":
+          fillRounded(x + 2, y + 4, w - 4, h - 4, 8, "#3a4850");
+          fillRounded(x + 10, y + 34, w - 20, 23, 4, "#202b32");
+          ctx.strokeStyle = "#bf9b6d"; ctx.lineWidth = 2; ctx.strokeRect(x + 18, y + 39, w - 36, 12);
+          [[20, 17], [43, 17], [20, 29], [43, 29]].forEach(([bx, by]) => {
+            ctx.fillStyle = "#222e34"; ctx.beginPath(); ctx.arc(x + bx, y + by, 8, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = "rgba(220,188,130,0.72)"; ctx.lineWidth = 1; ctx.stroke();
+          });
+          ctx.fillStyle = "#e6bd65"; [14, 26, 38, 50].forEach((kx) => { ctx.beginPath(); ctx.arc(x + kx, y + 7, 2, 0, Math.PI * 2); ctx.fill(); });
+          break;
+        case "sink":
+          fillRounded(x + 1, y + 8, w - 2, h - 9, 7, "#ad8057");
+          fillRounded(x + 10, y + 17, w - 20, 25, 7, "#d5d6c4");
+          fillRounded(x + 17, y + 22, w - 34, 13, 5, "#79a3a4");
+          ctx.strokeStyle = "#e0d7b8"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x + w - 17, y + 16, 8, Math.PI, Math.PI * 1.65); ctx.stroke();
+          break;
+        case "trash":
+          fillRounded(x + 7, y + 9, w - 14, h - 9, 5, "#65706f");
+          fillRounded(x + 3, y + 4, w - 6, 7, 4, "#404d52");
+          ctx.strokeStyle = "#aeb5a7"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x + 18, y + 18); ctx.lineTo(x + 18, y + h - 7); ctx.moveTo(x + 28, y + 18); ctx.lineTo(x + 28, y + h - 7); ctx.stroke();
+          break;
+        case "toilet":
+          fillRounded(x + 15, y + 4, w - 30, 23, 5, "#e0ddd0");
+          fillRounded(x + 8, y + 22, w - 16, h - 22, 13, "#f0eee2");
+          fillRounded(x + 18, y + 28, w - 36, 15, 8, "#9bb9b8");
+          break;
+        case "shower":
+          fillRounded(x + 4, y + 4, w - 8, h - 5, 8, "rgba(170, 215, 216, 0.38)");
+          strokeRounded(x + 4, y + 4, w - 8, h - 5, 8, "#e1eee1", 2);
+          ctx.strokeStyle = "rgba(225,238,225,0.82)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x + 18, y + 6); ctx.lineTo(x + 18, y + h - 7); ctx.moveTo(x + w - 18, y + 6); ctx.lineTo(x + w - 18, y + h - 7); ctx.stroke();
+          ctx.fillStyle = "#dce8d0"; ctx.beginPath(); ctx.arc(x + w / 2, y + 18, 5, 0, Math.PI * 2); ctx.fill();
+          break;
+        case "bathSink":
+          fillRounded(x + 3, y + 17, w - 6, h - 17, 6, "#8d6b51");
+          fillRounded(x + 10, y + 6, w - 20, 25, 8, "#e3e0d3");
+          ctx.fillStyle = "#86a9a5"; ctx.beginPath(); ctx.ellipse(x + w / 2, y + 18, 14, 6, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.strokeStyle = "#eee5c7"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x + w / 2 + 16, y + 8, 7, Math.PI, Math.PI * 1.6); ctx.stroke();
+          break;
+        case "bed":
+          fillRounded(x + 2, y + 9, w - 4, h - 7, 8, "#563c33");
+          fillRounded(x + 8, y + 6, w - 16, h - 17, 9, "#dfd6bb");
+          fillRounded(x + 8, y + 32, w - 16, h - 43, 7, "#7c855d");
+          fillRounded(x + 14, y + 12, 38, 20, 7, "#f4eddb");
+          fillRounded(x + 59, y + 12, 38, 20, 7, "#f4eddb");
+          ctx.strokeStyle = "#ad774d"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x + 8, y + h - 4); ctx.lineTo(x + w - 8, y + h - 4); ctx.stroke();
+          break;
+        case "tv":
+          fillRounded(x + 2, y + 3, w - 4, h - 8, 7, "#3c3941");
+          fillRounded(x + 9, y + 9, w - 18, h - 19, 4, "#263b4a");
+          ctx.fillStyle = "rgba(129,205,194,0.42)"; ctx.fillRect(x + 13, y + 13, w - 30, 4);
+          ctx.fillStyle = "#c2a064"; ctx.fillRect(x + w / 2 - 2, y + h - 4, 4, 8);
+          break;
+        case "sofa":
+          fillRounded(x + 2, y + 14, w - 4, h - 12, 12, "#687254");
+          fillRounded(x + 8, y + 4, w - 16, 32, 11, "#78835f");
+          fillRounded(x + 12, y + 19, 32, 25, 8, "#78835f");
+          fillRounded(x + 53, y + 19, 32, 25, 8, "#78835f");
+          ctx.strokeStyle = "rgba(37,48,37,0.35)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x + 50, y + 20); ctx.lineTo(x + 50, y + 43); ctx.stroke();
+          break;
+        case "computer":
+          fillRounded(x + 3, y + 38, w - 6, 14, 4, "#78533c");
+          fillRounded(x + 12, y + 5, w - 24, 35, 5, "#303c48");
+          fillRounded(x + 18, y + 10, w - 36, 23, 3, "#76a2a0");
+          ctx.fillStyle = "#e6c46e"; ctx.fillRect(x + 27, y + 16, 12, 2); ctx.fillRect(x + 27, y + 22, 19, 2);
+          ctx.fillStyle = "#d8c69d"; ctx.fillRect(x + 20, y + 43, w - 30, 4);
+          break;
+        case "phone":
+          fillRounded(x + 8, y + 2, w - 16, h - 4, 8, "#2a3949");
+          fillRounded(x + 12, y + 7, w - 24, h - 15, 5, "#6eaaa4");
+          ctx.fillStyle = "#f1d17a"; ctx.beginPath(); ctx.arc(x + w / 2, y + 14, 3, 0, Math.PI * 2); ctx.fill();
+          break;
+      }
+      ctx.restore();
+
+      const selected = state.selectedObject === obj.id;
+      if (selected) {
+        const pulse = 0.72 + Math.sin(performance.now() / 220) * 0.12;
+        ctx.save();
+        ctx.shadowColor = "rgba(244,184,63,0.78)";
+        ctx.shadowBlur = 14;
+        ctx.globalAlpha = pulse;
+        ctx.setLineDash([5, 4]);
+        strokeRounded(x - 5, y - 5, w + 10, h + 10, 11, "#f4c55d", 2);
+        ctx.restore();
+      }
+
+      ctx.font = "700 10px ui-rounded, Trebuchet MS, sans-serif";
+      const labelWidth = ctx.measureText(obj.name).width + 15;
+      fillRounded(x + w / 2 - labelWidth / 2, y + h + 7, labelWidth, 17, 8, selected ? "#3a2b20" : "rgba(19, 27, 33, 0.68)");
+      ctx.fillStyle = selected ? "#ffe29b" : "#f4e5c4";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(obj.name, x + w / 2, y + h + 15.5);
     }
 
     function drawObjects() {
-      OBJECTS.forEach((obj) => {
-        const selected = state.selectedObject === obj.id;
-
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
-
-        ctx.strokeStyle = selected ? "#2563eb" : "#334155";
-        ctx.lineWidth = selected ? 4 : 2;
-        ctx.strokeRect(obj.x, obj.y, obj.w, obj.h);
-
-        ctx.font = `${Math.min(obj.w, obj.h) * 0.45}px serif`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "#111827";
-        ctx.fillText(obj.emoji, obj.x + obj.w / 2, obj.y + obj.h / 2);
-
-        ctx.font = "11px Arial";
-        ctx.fillStyle = "#334155";
-        ctx.textBaseline = "alphabetic";
-        ctx.fillText(obj.name, obj.x + obj.w / 2, obj.y + obj.h + 12);
-      });
+      OBJECTS.forEach(drawObjectSprite);
     }
 
     function drawCharacter() {
-      let status = "Idle";
+      const t = performance.now() / 180;
+      const bob = state.currentAction || state.moveTarget ? Math.sin(t) * 2 : Math.sin(t * 0.45) * 0.8;
+      const x = state.char.x;
+      const y = state.char.y + bob;
+      let status = "Taking it easy";
 
       if (state.currentAction) {
         const action = state.currentAction;
-
-        status =
-          action.phase === "move"
-            ? `Moving to ${action.targetName}`
-            : `${action.label} ${Math.floor(action.elapsed)}/${action.duration}m`;
+        status = action.phase === "move" ? `Walking to ${action.targetName}` : action.label;
       } else if (state.moveTarget) {
         status = "Moving";
       }
 
+      if (state.moveTarget) {
+        const pulse = 10 + (Math.sin(performance.now() / 160) + 1) * 4;
+        ctx.save();
+        ctx.globalAlpha = 0.68;
+        ctx.strokeStyle = "#f4c55d";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.arc(state.moveTarget.x, state.moveTarget.y, pulse, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      ctx.save();
+      ctx.fillStyle = "rgba(40, 25, 26, 0.35)";
       ctx.beginPath();
-      ctx.arc(state.char.x, state.char.y, 16, 0, Math.PI * 2);
-      ctx.fillStyle = "#f97316";
+      ctx.ellipse(x, y + 21, 17, 6, 0, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 3;
-      ctx.stroke();
 
-      ctx.font = "20px serif";
-      ctx.textAlign = "center";
+      fillRounded(x - 11, y + 7, 8, 18, 4, "#34485b");
+      fillRounded(x + 3, y + 7, 8, 18, 4, "#34485b");
+      fillRounded(x - 16, y - 10, 32, 29, 11, "#4b7c70");
+      fillRounded(x - 12, y - 16, 24, 21, 10, "#c88961");
+      fillRounded(x - 13, y - 20, 26, 10, 8, "#633f2e");
+      ctx.fillStyle = "#f2d2a3";
+      ctx.beginPath(); ctx.arc(x - 5, y - 8, 1.6, 0, Math.PI * 2); ctx.arc(x + 5, y - 8, 1.6, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = "#8a4f46"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y - 5, 4, 0.15, Math.PI - 0.15); ctx.stroke();
+      ctx.restore();
+
+      ctx.font = "700 11px ui-rounded, Trebuchet MS, sans-serif";
+      const statusWidth = Math.min(185, Math.max(92, ctx.measureText(status).width + 50));
+      const bubbleX = clamp(x - statusWidth / 2, 22, canvas.width - statusWidth - 22);
+      const bubbleY = Math.max(31, y - 61);
+      fillRounded(bubbleX, bubbleY, statusWidth, 28, 12, "rgba(12, 25, 37, 0.92)");
+      strokeRounded(bubbleX, bubbleY, statusWidth, 28, 12, "rgba(244,195,93,0.42)", 1);
+      ctx.fillStyle = "#f7e6bd";
+      ctx.textAlign = "left";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = "#111827";
-      ctx.fillText(moodEmoji(), state.char.x, state.char.y);
-
-      ctx.font = "14px Arial";
-      ctx.fillStyle = "#111827";
-      ctx.fillText(status, state.char.x, state.char.y - 34);
+      ctx.fillText(status, bubbleX + 11, bubbleY + 14);
+      ctx.font = "18px serif";
+      ctx.textAlign = "right";
+      ctx.fillText(moodEmoji(), bubbleX + statusWidth - 10, bubbleY + 14);
 
       if (state.currentAction && state.currentAction.phase === "doing") {
         const action = state.currentAction;
         const pct = clamp(action.elapsed / action.duration, 0, 1);
-
-        ctx.fillStyle = "#111827";
-        ctx.fillRect(state.char.x - 40, state.char.y - 54, 80, 8);
-
-        ctx.fillStyle = "#22c55e";
-        ctx.fillRect(state.char.x - 40, state.char.y - 54, 80 * pct, 8);
+        fillRounded(x - 42, y - 42, 84, 6, 3, "rgba(8, 16, 26, 0.8)");
+        fillRounded(x - 42, y - 42, 84 * pct, 6, 3, "#74d2bd");
       }
     }
 
@@ -1065,70 +1898,3 @@
         state.speed = Number(btn.dataset.speed);
         state.paused = false;
         updateHUD();
-      };
-    });
-
-    document.getElementById("autonomy").onchange = (e) => {
-      state.autonomy = e.target.checked;
-      notify(`Autonomy ${state.autonomy ? "enabled" : "disabled"}.`);
-    };
-
-    document.getElementById("saveBtn").onclick = saveGame;
-    document.getElementById("loadBtn").onclick = loadGame;
-    document.getElementById("resetBtn").onclick = resetGame;
-
-    window.addEventListener("keydown", (e) => {
-      if (e.code === "Space") {
-        e.preventDefault();
-        state.paused = !state.paused;
-        updateHUD();
-      }
-
-      if (e.key === "1") {
-        state.speed = 1;
-        state.paused = false;
-        updateHUD();
-      }
-
-      if (e.key === "2") {
-        state.speed = 5;
-        state.paused = false;
-        updateHUD();
-      }
-
-      if (e.key === "3") {
-        state.speed = 15;
-        state.paused = false;
-        updateHUD();
-      }
-
-      if (e.key === "4") {
-        state.speed = 60;
-        state.paused = false;
-        updateHUD();
-      }
-    });
-
-    buildNeedsUI();
-    renderPanel();
-    renderNotifications();
-    notify("Welcome! Click objects to interact.");
-
-    let last = performance.now();
-
-    function loop(now) {
-      const dt = Math.min((now - last) / 1000, 0.1);
-      last = now;
-
-      if (!state.paused) {
-        update(dt);
-      }
-
-      draw();
-      requestAnimationFrame(loop);
-    }
-
-    requestAnimationFrame(loop);
-  </script>
-</body>
-</html>
