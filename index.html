@@ -1,15 +1,71 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#020617">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>Mini Life Sim</title>
-<meta http-equiv="refresh" content="0; url=./3D%20browser%20games/">
-<style>html,body{height:100%;margin:0;background:#020617;color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{display:grid;place-items:center;padding:24px;box-sizing:border-box}.card{text-align:center}a{display:inline-block;margin-top:16px;padding:14px 20px;border-radius:14px;background:#3b82f6;color:white;text-decoration:none;font-weight:800}</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Mini Life Sim</title>
+  <meta http-equiv="refresh" content="2; url=./3D%20browser%20games/">
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: #f8f4e9;
+      font-family: ui-rounded, "Avenir Next", "Trebuchet MS", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 25% 10%, rgba(66, 122, 143, 0.3), transparent 28rem),
+        radial-gradient(circle at 80% 84%, rgba(232, 160, 48, 0.16), transparent 24rem),
+        #07111e;
+    }
+    .card {
+      width: min(520px, 100%);
+      padding: clamp(28px, 7vw, 54px);
+      text-align: center;
+      background: rgba(15, 27, 43, 0.9);
+      border: 1px solid rgba(180, 206, 225, 0.18);
+      border-radius: 24px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.36), inset 0 1px rgba(255,255,255,0.06);
+    }
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 18px;
+      color: #1d2933;
+      font-size: 34px;
+      background: linear-gradient(145deg, #ffd46d, #e9a632);
+      border-radius: 18px;
+    }
+    h1 { margin: 0; font-size: clamp(30px, 6vw, 44px); letter-spacing: -0.05em; }
+    h1 b { color: #f4b83f; }
+    p { margin: 12px 0 0; color: #9aabbd; line-height: 1.5; }
+    a {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 13px 21px;
+      color: #202a32;
+      font-weight: 800;
+      text-decoration: none;
+      background: linear-gradient(145deg, #ffd36b, #e9a632);
+      border: 1px solid #ffe49a;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(232, 160, 48, 0.2);
+    }
+  </style>
 </head>
-<body><div class="card"><h1>Mini Life Sim</h1><p>Loading your game…</p><a href="./3D%20browser%20games/">Tap to play</a></div>
-<script>location.replace("./3D%20browser%20games/");</script>
+<body>
+  <main class="card">
+    <div class="mark">⌂</div>
+    <h1>Mini <b>Life</b> Sim</h1>
+    <p>Loading your little apartment…</p>
+    <a href="./3D%20browser%20games/">Tap to play now</a>
+  </main>
+  <script>window.setTimeout(() => location.replace("./3D%20browser%20games/"), 350);</script>
 </body>
 </html>
