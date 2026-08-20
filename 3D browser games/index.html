@@ -1898,3 +1898,70 @@
         state.speed = Number(btn.dataset.speed);
         state.paused = false;
         updateHUD();
+      };
+    });
+
+    document.getElementById("autonomy").onchange = (e) => {
+      state.autonomy = e.target.checked;
+      notify(`Autonomy ${state.autonomy ? "enabled" : "disabled"}.`);
+    };
+
+    document.getElementById("saveBtn").onclick = saveGame;
+    document.getElementById("loadBtn").onclick = loadGame;
+    document.getElementById("resetBtn").onclick = resetGame;
+
+    window.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        state.paused = !state.paused;
+        updateHUD();
+      }
+
+      if (e.key === "1") {
+        state.speed = 1;
+        state.paused = false;
+        updateHUD();
+      }
+
+      if (e.key === "2") {
+        state.speed = 5;
+        state.paused = false;
+        updateHUD();
+      }
+
+      if (e.key === "3") {
+        state.speed = 15;
+        state.paused = false;
+        updateHUD();
+      }
+
+      if (e.key === "4") {
+        state.speed = 60;
+        state.paused = false;
+        updateHUD();
+      }
+    });
+
+    buildNeedsUI();
+    renderPanel();
+    renderNotifications();
+    notify("Welcome! Click objects to interact.");
+
+    let last = performance.now();
+
+    function loop(now) {
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+
+      if (!state.paused) {
+        update(dt);
+      }
+
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
