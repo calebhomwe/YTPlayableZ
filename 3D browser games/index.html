@@ -551,6 +551,21 @@
       });
     }
 
+    function renderActionProgress() {
+      const el = document.getElementById("actionProgress");
+      const action = state.currentAction;
+      if (!el || !action) return;
+
+      const text =
+        action.phase === "move"
+          ? `Moving to ${action.targetName}`
+          : `Doing action: ${Math.floor(action.elapsed)} / ${action.duration} min`;
+
+      if (el.textContent !== text) {
+        el.textContent = text;
+      }
+    }
+
     function renderPanel() {
       const objectName = document.getElementById("objectName");
       const objectActions = document.getElementById("objectActions");
@@ -566,8 +581,7 @@
         current.className = "current";
         current.innerHTML = `
           <strong>${action.label}</strong><br />
-          ${action.phase === "move" ? `Moving to ${action.targetName}` : "Doing action"}<br />
-          ${action.phase === "doing" ? `${Math.floor(action.elapsed)} / ${action.duration} min` : ""}
+          <span id="actionProgress"></span>
         `;
 
         const cancel = document.createElement("button");
@@ -581,6 +595,7 @@
 
         objectActions.appendChild(current);
         objectActions.appendChild(cancel);
+        renderActionProgress();
         return;
       }
 
@@ -849,6 +864,8 @@
             completeAction();
           }
         }
+
+        renderActionProgress();
       } else if (state.moveTarget) {
         const arrived = moveTowards(state.moveTarget, dt);
 
@@ -1021,6 +1038,7 @@
 
         renderPanel();
         renderNotifications();
+        updateHUD();
         notify("Game loaded.");
       } catch (err) {
         notify("Save could not be loaded.");
@@ -1032,6 +1050,7 @@
       state = createInitialState();
       renderPanel();
       renderNotifications();
+      updateHUD();
       notify("New game started.");
     }
 
