@@ -1008,13 +1008,29 @@
       renderPanel();
     }
 
+    function finiteOr(value, fallback) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n : fallback;
+    }
+
     function saveGame() {
-      localStorage.setItem("miniLifeSimSave", JSON.stringify(state));
-      notify("Game saved.");
+      try {
+        localStorage.setItem("miniLifeSimSave", JSON.stringify(state));
+        notify("Game saved.");
+      } catch (err) {
+        notify("Save failed: browser storage is blocked or full.");
+      }
     }
 
     function loadGame() {
-      const raw = localStorage.getItem("miniLifeSimSave");
+      let raw = null;
+
+      try {
+        raw = localStorage.getItem("miniLifeSimSave");
+      } catch (err) {
+        notify("Load failed: browser storage is blocked.");
+        return;
+      }
 
       if (!raw) {
         notify("No save found.");
@@ -1023,18 +1039,41 @@
 
       try {
         const data = JSON.parse(raw);
+        if (!data || typeof data !== "object") throw new Error("bad save");
+
         const base = createInitialState();
 
-        state = {
+        const next = {
           ...base,
           ...data,
           needs: { ...base.needs, ...(data.needs || {}) },
           char: { ...base.char, ...(data.char || {}) },
-          warnings: { ...base.warnings, ...(data.warnings || {}) }
+          warnings: { ...base.warnings, ...(data.warnings || {}) },
+          notifications: Array.isArray(data.notifications)
+            ? data.notifications.filter(
+                (n) => n && typeof n.time === "string" && typeof n.msg === "string"
+              )
+            : []
         };
 
-        state.currentAction = null;
-        state.moveTarget = null;
+        ["time", "day", "speed", "money", "autonomyCooldown"].forEach((key) => {
+          next[key] = finiteOr(next[key], base[key]);
+        });
+
+        NEEDS.forEach((need) => {
+          next.needs[need.id] = clamp(
+            finiteOr(next.needs[need.id], base.needs[need.id]),
+            0,
+            100
+          );
+        });
+
+        next.char.x = finiteOr(next.char.x, base.char.x);
+        next.char.y = finiteOr(next.char.y, base.char.y);
+        next.currentAction = null;
+        next.moveTarget = null;
+
+        state = next;
 
         renderPanel();
         renderNotifications();
@@ -1046,7 +1085,12 @@
     }
 
     function resetGame() {
-      localStorage.removeItem("miniLifeSimSave");
+      try {
+        localStorage.removeItem("miniLifeSimSave");
+      } catch (err) {
+        // Storage is blocked, so there is nothing stored to clear.
+      }
+
       state = createInitialState();
       renderPanel();
       renderNotifications();
